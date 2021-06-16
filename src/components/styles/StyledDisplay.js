@@ -12,6 +12,7 @@ export const StyledDisplay = styled.div`
     width:100%;
     border-radius: 20px;
     color:${props => (props.gameOver ? 'red': '#999')};
+    text-align: ${props => (props.gameOver ? 'center': 'left')};
     background: #000;
     font-family: Pixel, Arial, Helvetica, sans-serif;
     font-size: 0.8rem;
