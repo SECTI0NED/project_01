@@ -21,6 +21,7 @@ const Tetris = () => {
     const[player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
     const[stage, setStage, rowsCleared] = useStage(player, resetPlayer)
     const[score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
+    
     const movePlayer = dir => {
         if(!checkCollision(player, stage, {x: dir, y: 0})){
             updatePlayerPos({x: dir, y:0});
@@ -53,6 +54,7 @@ const Tetris = () => {
             updatePlayerPos({x: 0, y: 0, collided: true});
         }
     }
+
     const keyUp = ({keyCode})=> {
         if(!gameOver) {
             if(keyCode === DOWN) {
@@ -65,20 +67,38 @@ const Tetris = () => {
         drop();
     }
 
+    const fastDrop = () => {
+        let y_var = 1;
+        while(!checkCollision(player, stage, {x:0, y:y_var})) {
+            y_var+=1;
+        }
+        updatePlayerPos({x: 0, y: y_var-1, collided: false})
+    }
+
+    const shadow = () => {
+        let y_var = 1;
+        while(!checkCollision(player, stage, {x:0, y:y_var})) {
+            y_var+=1;
+        }
+    }
+
     const move = ({ keyCode }) => {
         if(!gameOver) {
             if(keyCode === LEFT) {
                 movePlayer(-1);
+                shadow()
             } else if (keyCode === RIGHT){
                 movePlayer(1);
+                shadow()
             } else if (keyCode === DOWN){
                 dropPlayer();
             } else if (keyCode === ROTATE) {
                 playerRotate(stage, 1)
+            } else if (keyCode === FAST_DROP) {
+                fastDrop()
             }
         }
     }
-
 
     useInterval(()=> {
         drop();

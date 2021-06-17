@@ -7,7 +7,6 @@ export const useStage = (player, resetPlayer) => {
 
     useEffect(() => {
         setRowsCleared(0);
-
         const sweepRows = newStage =>
             newStage.reduce((ack, row) => {
                 if(row.findIndex(cell => cell[0] === 0) === -1) {
@@ -23,13 +22,11 @@ export const useStage = (player, resetPlayer) => {
             const newStage = prevStage.map(row => 
                 row.map(cell => (cell[1] === "clear" ? [0, "clear"] : cell)),
             );
+
             player.tetromino.forEach((row, y) => {
                 row.forEach((value, x) => {
-                    if(value !==0){
-                        newStage[y + player.pos.y][x + player.pos.x] = [
-                            value,
-                            `${player.collided ? 'merged' : 'clear'}`
-                        ]
+                    if(value !== 0){
+                        newStage[y + player.pos.y][x + player.pos.x] = [value, `${player.collided ? 'merged' : 'clear'}`]
                     }
                 })
             })
