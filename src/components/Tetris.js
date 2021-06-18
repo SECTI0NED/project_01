@@ -2,8 +2,8 @@ import React,{useState} from 'react'
 import Stage from "./Stage"
 import Display from "./Display"
 import StartButton from "./StartButton"
-import {DOWN, LEFT, RIGHT, ROTATE, FAST_DROP} from "../const"
-import {createStage, checkCollision} from '../gameHelpers'
+import {DOWN, LEFT, RIGHT, ROTATE, FAST_DROP} from "../utilities/constants"
+import {createStage, checkCollision} from '../utilities/gameHelpers'
 
 // Styled Components
 import {StyledTetrisWrapper, StyledTetris} from "./styles/StyledTetris"
