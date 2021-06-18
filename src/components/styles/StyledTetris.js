@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import bgImage from "../../img/bg.png";
+import bgImage from "../../img/background.jpg";
 
 export const StyledTetrisWrapper = styled.div`
     width: 100vw;
@@ -7,6 +7,8 @@ export const StyledTetrisWrapper = styled.div`
     background: url(${bgImage}) #000;
     background-soze: cover;
     overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
 `
 
 export const StyledTetris = styled.div`
