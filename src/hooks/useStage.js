@@ -5,14 +5,6 @@ export const useStage = (player, resetPlayer) => {
     const[stage, setStage] = useState(createStage());
     const[rowsCleared, setRowsCleared] = useState(0);
 
-    // const getShadowValue = (stage) => {
-    //     let y_var = 1;
-    //     while(!checkCollision(player, stage, {x:0, y:y_var})) {
-    //         y_var+=1;
-    //     }
-    //     return y_var
-    // };
-
     useEffect(() => {
 
         setRowsCleared(0);
@@ -68,7 +60,6 @@ export const useStage = (player, resetPlayer) => {
         };
         
         setStage(prev => {
-            // const shadowValue = getShadowValue(prev)
             return updateStage(prev)
         })
 
