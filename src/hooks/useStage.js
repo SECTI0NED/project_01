@@ -54,6 +54,7 @@ export const useStage = (player, resetPlayer) => {
                         // console.log(y, x)
                         newStage[y + player.pos.y][x + player.pos.x] = [value, `${player.collided ? 'merged' : 'clear'}`]
                         newStage[y + 14][x + player.pos.x] = [ value, 'shadow']
+                        // newStage[y + y_var-1][x + player.pos.x] = [ value, 'shadow']
                     }
                 })
             });
