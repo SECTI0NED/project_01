@@ -25,6 +25,7 @@ const Tetris = () => {
    
     
     const updateShadow = (dir) => {
+        console.log(dir)
         let yvar = 1
         while(!checkCollision(player, stage, {x: dir, y: yvar})){
             yvar+=1
@@ -66,7 +67,7 @@ const Tetris = () => {
                 setGameOver(true);
                 setDropTime(null);
             }
-            // setShadow(0)
+            setShadow(0)
             updatePlayerPos({x: 0, y: 0, collided: true});
         }
     }

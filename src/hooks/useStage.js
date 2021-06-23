@@ -34,9 +34,6 @@ export const useStage = (player, resetPlayer, shadow) => {
                 ),
             );
 
-
-         
-            
             // Draw the tetromino and shadow
             player.tetromino.forEach((row, y) => {
                 row.forEach((value, x) => {
@@ -50,9 +47,6 @@ export const useStage = (player, resetPlayer, shadow) => {
                                 newStage[y + player.pos.y + shadow][x + player.pos.x] = [ value, 'shadow']
                             }    
                         }
-                       
-                        
-                        // newStage[y + y_var-1][x + player.pos.x] = [ value, 'shadow']
                     }
                 })
             });
