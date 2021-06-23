@@ -3,7 +3,7 @@ import Stage from "./Stage"
 import Display from "./Display"
 import StartButton from "./StartButton"
 import {DOWN, LEFT, RIGHT, ROTATE, FAST_DROP} from "../utilities/constants"
-import {createStage, checkCollision} from '../utilities/gameHelpers'
+import {createStage, checkCollision, STAGE_WIDTH} from '../utilities/gameHelpers'
 
 // Styled Components
 import {StyledTetrisWrapper, StyledTetris} from "./styles/StyledTetris"
@@ -38,19 +38,19 @@ const Tetris = () => {
         if(!checkCollision(player, stage, {x: dir, y: 0})){
             updatePlayerPos({x: dir, y:0});
         }
-        
     }
 
     const startGame = () => {
         //Reset everything
         setStage(createStage())
-        setShadow(17)
         setDropTime(1000)
         resetPlayer()
         setGameOver(false)
         setScore(0)
         setRows(0)
         setLevel(0)
+        setShadow(0)
+        // updateShadow(STAGE_WIDTH/2 - 2)
     }   
 
     const drop = () => {
@@ -66,6 +66,7 @@ const Tetris = () => {
                 setGameOver(true);
                 setDropTime(null);
             }
+            // setShadow(0)
             updatePlayerPos({x: 0, y: 0, collided: true});
         }
     }
