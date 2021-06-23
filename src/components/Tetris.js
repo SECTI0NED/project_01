@@ -16,21 +16,35 @@ import { useGameStatus } from '../hooks/useGameStatus'
 
 
 const Tetris = () => {
+    const[shadow, setShadow] = useState(0)
     const[dropTime, setDropTime] = useState(null);
     const[gameOver, setGameOver] = useState(false);
     const[player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-    const[stage, setStage, rowsCleared] = useStage(player, resetPlayer)
+    const[stage, setStage, rowsCleared] = useStage(player, resetPlayer, shadow)
     const[score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
+   
     
+    const updateShadow = (dir) => {
+        let yvar = 1
+        while(!checkCollision(player, stage, {x: dir, y: yvar})){
+            yvar+=1
+        }
+        let shadowPos = yvar-1
+        setShadow(shadowPos)
+    }
+
     const movePlayer = dir => {
+        updateShadow(dir)
         if(!checkCollision(player, stage, {x: dir, y: 0})){
             updatePlayerPos({x: dir, y:0});
-        } 
+        }
+        
     }
 
     const startGame = () => {
         //Reset everything
         setStage(createStage())
+        setShadow(17)
         setDropTime(1000)
         resetPlayer()
         setGameOver(false)
@@ -45,6 +59,7 @@ const Tetris = () => {
             setDropTime(1000/(level + 1) + 200)
         }
         if(!checkCollision(player, stage, {x: 0, y: 1})){
+            setShadow(prev => (prev - 1))
             updatePlayerPos({x: 0, y: 1, collided: false})
         } else {
             if(player.pos.y < 1){
@@ -72,24 +87,18 @@ const Tetris = () => {
         while(!checkCollision(player, stage, {x:0, y:y_var})) {
             y_var+=1;
         }
+        updateShadow(0)
         updatePlayerPos({x: 0, y: y_var-1, collided: false})
     }
 
-    const shadow = () => {
-        let y_var = 1;
-        while(!checkCollision(player, stage, {x:0, y:y_var})) {
-            y_var+=1;
-        }
-    }
+ 
 
     const move = ({ keyCode }) => {
         if(!gameOver) {
             if(keyCode === LEFT) {
                 movePlayer(-1);
-                shadow()
             } else if (keyCode === RIGHT){
                 movePlayer(1);
-                shadow()
             } else if (keyCode === DOWN){
                 dropPlayer();
             } else if (keyCode === ROTATE) {

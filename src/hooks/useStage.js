@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { checkCollision, createStage } from '../utilities/gameHelpers';
+import { createStage, STAGE_HEIGHT } from '../utilities/gameHelpers';
 
-export const useStage = (player, resetPlayer) => {
+export const useStage = (player, resetPlayer, shadow) => {
     const[stage, setStage] = useState(createStage());
     const[rowsCleared, setRowsCleared] = useState(0);
 
@@ -21,6 +21,7 @@ export const useStage = (player, resetPlayer) => {
             }, [])
 
         const updateStage = (prevStage) => {
+            // Clean stage
             const newStage = prevStage.map(row => 
                 row.map(
                     cell => { 
@@ -34,18 +35,20 @@ export const useStage = (player, resetPlayer) => {
             );
 
 
-            // let y_var = 1;
-            // while(!checkCollision(player, newStage, {x:0, y:y_var})) {
-            //     y_var+=1;
-            // }
-
-            // Draw the tetromino
+         
+            
+            // Draw the tetromino and shadow
             player.tetromino.forEach((row, y) => {
                 row.forEach((value, x) => {
                     if(value !== 0){
                         // console.log(y, x)
+                        // console.log(y + player.pos.y + shadow)
                         newStage[y + player.pos.y][x + player.pos.x] = [value, `${player.collided ? 'merged' : 'clear'}`]
-                        newStage[y + 14][x + player.pos.x] = [ value, 'shadow']
+                        if(y + player.pos.y + shadow < STAGE_HEIGHT){
+                            newStage[y + player.pos.y + shadow][x + player.pos.x] = [ value, 'shadow']
+                        }
+                       
+                        
                         // newStage[y + y_var-1][x + player.pos.x] = [ value, 'shadow']
                     }
                 })
