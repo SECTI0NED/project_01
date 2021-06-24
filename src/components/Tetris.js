@@ -16,16 +16,15 @@ import { useGameStatus } from '../hooks/useGameStatus'
 
 
 const Tetris = () => {
-    const[shadow, setShadow] = useState(0)
+    // const[shadow, setShadow] = useState(0)
     const[dropTime, setDropTime] = useState(null);
     const[gameOver, setGameOver] = useState(false);
-    const[player, updatePlayerPos, resetPlayer, playerRotate] = usePlayer();
-    const[stage, setStage, rowsCleared] = useStage(player, resetPlayer, shadow)
+    const[player, updatePlayerPos, resetPlayer, playerRotate, playerShadow, updatePlayerShadow, setShadow] = usePlayer();
+    const[stage, setStage, rowsCleared] = useStage(player, resetPlayer, playerShadow)
     const[score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
    
     
     const updateShadow = (dir) => {
-        console.log(dir)
         let yvar = 1
         while(!checkCollision(player, stage, {x: dir, y: yvar})){
             yvar+=1
@@ -35,7 +34,7 @@ const Tetris = () => {
     }
 
     const movePlayer = dir => {
-        updateShadow(dir)
+        updatePlayerShadow(dir, stage)
         if(!checkCollision(player, stage, {x: dir, y: 0})){
             updatePlayerPos({x: dir, y:0});
         }
@@ -89,7 +88,7 @@ const Tetris = () => {
         while(!checkCollision(player, stage, {x:0, y:y_var})) {
             y_var+=1;
         }
-        updateShadow(0)
+        updatePlayerShadow(0, stage)
         updatePlayerPos({x: 0, y: y_var-1, collided: false})
     }
 
@@ -105,6 +104,7 @@ const Tetris = () => {
                 dropPlayer();
             } else if (keyCode === ROTATE) {
                 playerRotate(stage, 1)
+                
             } else if (keyCode === FAST_DROP) {
                 fastDrop()
             }

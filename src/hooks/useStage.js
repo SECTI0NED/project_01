@@ -43,8 +43,8 @@ export const useStage = (player, resetPlayer, shadow) => {
                         newStage[y + player.pos.y][x + player.pos.x] = [value, `${player.collided ? 'merged' : 'clear'}`]
 
                         if(!player.collided){
-                            if(y + player.pos.y + shadow < STAGE_HEIGHT){
-                                newStage[y + player.pos.y + shadow][x + player.pos.x] = [ value, 'shadow']
+                            if(y + player.pos.y + shadow.pos.y < STAGE_HEIGHT){
+                                newStage[y + player.pos.y + shadow.pos.y][x + player.pos.x] = [ value, 'shadow']
                             }    
                         }
                     }
