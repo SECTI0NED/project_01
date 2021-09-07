@@ -1,4 +1,4 @@
-# Tetris Game
+# Tetris
 
 Tetris game made using React hooks
 
